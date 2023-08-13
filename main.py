@@ -9,4 +9,4 @@ def read_root():
     return {"Hello": "World"}
 
 
-app.include_router(db.app, tags=['db'], prefix='/filter/v1')
+app.include_router(db.app, tags=['db'], prefix='/items/v1')
