@@ -3,7 +3,7 @@
 # import pprint
 from pymongo import MongoClient
 # load_dotenv(find_dotenv())
-from motor.motor_asyncio import AsyncIOMotorClient
+# from motor.motor_asyncio import AsyncIOMotorClient
 
 # url = "mongodb+srv://mongo:mongodb123@cluster0.cmqrijy.mongodb.net/piket_rayon?retryWrites=true&w=majority"
 # url nya local dlu
