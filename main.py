@@ -15,4 +15,4 @@ def read_root():
 
 
 # app.include_router(db.app, tags=['db'], prefix='/items/v1')
-app.include_router(api.router, tags=['api'], prefix='/items/v1')
+app.include_router(api.router, tags=['api'], prefix='/list')
