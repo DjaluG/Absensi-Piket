@@ -7,6 +7,8 @@ from pymongo import MongoClient
 
 # url = "mongodb+srv://mongo:mongodb123@cluster0.cmqrijy.mongodb.net/piket_rayon?retryWrites=true&w=majority"
 # url nya local dlu
+
+
 def db_connection():
     url = "mongodb://localhost:27017/"
     db = MongoClient(url)
