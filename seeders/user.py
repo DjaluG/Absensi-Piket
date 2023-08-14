@@ -1,11 +1,13 @@
 from database.db import db_connection
-# from models.User import UserRole
+from models.User import UserRole
 user_collection = db_connection()['auth']
 
 
 def user_login():
     user_login = [
-        {'name': 'admin1', 'password': hash('piket')}
+        {'name': 'admin', 'password': hash('admin'), 'role': UserRole.admin},
+        {'name': 'responsible', 'password': hash(
+            'responsible'), 'role': UserRole.pengawas},
     ]
     # 'role': UserRole
 
