@@ -4,7 +4,6 @@ from seeders.students_seeder import seed_student
 from piket_api import api
 from ctm import ctm
 
-
 app = FastAPI()
 # Panggil Seeder
 seed_student()

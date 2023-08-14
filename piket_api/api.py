@@ -9,13 +9,6 @@ from database.db import db_connection
 router = APIRouter()
 
 
-@router.post('/api/{id}')
-async def read_api():
-    return {
-        "key": "Test",
-    }
-
-
 @router.get('/students')
 async def get_all_students():
     collection = db_connection()['students']
