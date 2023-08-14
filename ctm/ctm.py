@@ -10,6 +10,7 @@ db = client['absensi_piket']
 collection = db['students']
 
 
+#  CTM OR CSV TO MONGODB
 @app.post("/upload/")
 async def upload_csv(file: UploadFile = File(...)):
     contents = await file.read()
