@@ -8,11 +8,13 @@ app = APIRouter()
 
 @app.post('/login')
 async def login(user: User, user_role: UserRole):
-    query = {
-        "name": user.name,
-        "password": user.password
-    }
-    existing_user = auth_collection.find_one(query)
+    query = [
+        {
+            "name": user.name,
+        }
+    ]
+    for item in query:
+        existing_user = auth_collection.find_one({"name": item["name"]})
 
     if existing_user:
         if existing_user["role"] == user_role.value:
