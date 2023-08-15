@@ -83,11 +83,7 @@ async def update_student(student_id: str, updated_student: Student, current_user
 
 
 @router.post('/students')
-async def create_student(student: Student, current_user: User = Depends(get_current_user)):
-
-    if current_user.role_id != 1:
-        raise HTTPException(status_code=403, detail="Forbidden")
-
+async def create_student(student: Student):
     collection = db_connection()['students']
     result = collection.insert_one(student.dict())
 
