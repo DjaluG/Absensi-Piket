@@ -1,18 +1,24 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from models.Student import Student
 from pydantic import parse_obj_as
+from database.db import db_connection
 from fastapi.encoders import jsonable_encoder
 from bson import ObjectId
+from models.User import User
+from auth.auth_handler import get_current_user
 from database.db import db_connection
 # import csv
 # from pymongo import MongoClient
 
 router = APIRouter()
+auth_collection = db_connection()['auth']
+collection = db_connection()['students']
+
 
 
 @router.get('/students')
 async def get_all_students():
-    collection = db_connection()['students']
+
     students = collection.find()
     student_list = []
     for student in students:
@@ -26,7 +32,10 @@ async def get_all_students():
 
 
 @router.delete('/students/{student_id}')
-async def delete_students(student_id: str):
+async def delete_students(student_id: str, current_user : User = Depends(get_current_user)):
+    if current_user.role_id != 1:
+        raise HTTPException(status_code=403, detail="Forbidden")
+    
     collection = db_connection()['students']
     # Temukan Id Student dan delete
     result = collection.delete_one({"_id": ObjectId(student_id)})
@@ -57,7 +66,11 @@ async def get_specific_student(student_id: str):
 
 
 @router.put('/students/{student_id}')
-async def update_student(student_id: str, updated_student: Student):
+async def update_student(student_id: str, updated_student: Student, current_user : User = Depends(get_current_user)):
+
+    if current_user.role_id != 1:
+        raise HTTPException(status_code=403, detail="Forbidden")
+    
     collection = db_connection()['students']
     result = collection.update_one({"_id": ObjectId(student_id)}, {
                                    "$set": updated_student.dict()})

@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from database.db import db_connection
-from models.User import User, UserRole
 import bcrypt
 
 auth_collection = db_connection()['auth']
