@@ -15,7 +15,6 @@ auth_collection = db_connection()['auth']
 collection = db_connection()['students']
 
 
-
 @router.get('/students')
 async def get_all_students():
 
@@ -32,10 +31,10 @@ async def get_all_students():
 
 
 @router.delete('/students/{student_id}')
-async def delete_students(student_id: str, current_user : User = Depends(get_current_user)):
+async def delete_students(student_id: str, current_user: User = Depends(get_current_user)):
     if current_user.role_id != 1:
         raise HTTPException(status_code=403, detail="Forbidden")
-    
+
     collection = db_connection()['students']
     # Temukan Id Student dan delete
     result = collection.delete_one({"_id": ObjectId(student_id)})
@@ -66,11 +65,11 @@ async def get_specific_student(student_id: str):
 
 
 @router.put('/students/{student_id}')
-async def update_student(student_id: str, updated_student: Student, current_user : User = Depends(get_current_user)):
+async def update_student(student_id: str, updated_student: Student, current_user: User = Depends(get_current_user)):
 
     if current_user.role_id != 1:
         raise HTTPException(status_code=403, detail="Forbidden")
-    
+
     collection = db_connection()['students']
     result = collection.update_one({"_id": ObjectId(student_id)}, {
                                    "$set": updated_student.dict()})
@@ -96,12 +95,12 @@ async def create_student(student: Student):
 async def mark_picket(student_id: str):
     collection = db_connection()['students']
 
-     # Temukan data berdasarkan ObjectId
+    # Temukan data berdasarkan ObjectId
     result = collection.find_one({"_id": ObjectId(student_id)})
 
     if result is None:
         raise HTTPException(status_code=404, detail="Student not found")
-    
+
     # ubah dict menjadi model
     student = parse_obj_as(Student, result)
 
@@ -118,16 +117,18 @@ async def mark_picket(student_id: str):
         return {"message": "No changes were made"}
 
 # Batalkan sudah piket
+
+
 @router.post('/cancel/{student_id}')
 async def mark_picket(student_id: str):
     collection = db_connection()['students']
 
-     # Temukan data berdasarkan ObjectId
+    # Temukan data berdasarkan ObjectId
     result = collection.find_one({"_id": ObjectId(student_id)})
 
     if result is None:
         raise HTTPException(status_code=404, detail="Student not found")
-    
+
     # ubah dict menjadi model
     student = parse_obj_as(Student, result)
 
