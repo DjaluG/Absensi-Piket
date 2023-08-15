@@ -1,10 +1,11 @@
 from database.db import db_connection
 role_collection = db_connection()['role']
 
+
 def seed_role():
     items_to_insert = [
-        {"id": 1, "title": "admin"},
-        {"id": 2, "title": "pengawas"},
+        {"_id": 1, "title": "admin"},
+        {"_id": 2, "title": "pengawas"},
     ]
 
     for item in items_to_insert:

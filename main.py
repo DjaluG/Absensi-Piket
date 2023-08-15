@@ -23,4 +23,3 @@ def read_root():
 app.include_router(api.router, tags=['api'], prefix='/list')
 app.include_router(ctm.app, tags=['ctm'], prefix='/ctm')
 app.include_router(auth.app, tags=['auth'], prefix='/auth')
-app.include_router(auth.app, tags=['auth'], prefix='/auth')
