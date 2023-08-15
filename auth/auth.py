@@ -1,26 +1,23 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from database.db import db_connection
 from models.User import User, UserRole
+import bcrypt
+
 auth_collection = db_connection()['auth']
 
 app = APIRouter()
 
 
 @app.post('/login')
-async def login(user: User, user_role: UserRole):
-    query = [
-        {
-            "name": user.name,
-        }
-    ]
-    for item in query:
-        existing_user = auth_collection.find_one({"name": item["name"]})
+async def login_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    existing_user = auth_collection.find_one({"name": form_data.username})
 
     if existing_user:
-        if existing_user["role"] == user_role.value:
-            return {"message": "Login successful"}
+        if bcrypt.checkpw(form_data.password.encode('utf-8'), existing_user["password"]):
+            return {"access_token": existing_user['name'], "token_type": "bearer"}
         else:
-            raise HTTPException(status_code=403, detail="Invalid user role")
+            raise HTTPException(
+                status_code=401, detail="Incorrect username or password")
     else:
-        raise HTTPException(
-            status_code=401, detail="Invalid username or password")
+        raise HTTPException(status_code=404, detail="User not found")
