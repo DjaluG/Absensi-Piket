@@ -6,3 +6,6 @@ class Student(BaseModel):
     nama: str
     rombel: str
     rayon: str
+    day: str
+    status: bool =False
+    desc : str

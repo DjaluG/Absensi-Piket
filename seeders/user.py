@@ -1,13 +1,13 @@
 from database.db import db_connection
-from models.User import UserRole
+# from models.User import UserRole
+import bcrypt
 user_collection = db_connection()['auth']
 
 
 def user_login():
     user_login = [
-        {'name': 'admin', 'password': hash('admin'), 'role': UserRole.admin},
-        {'name': 'responsible', 'password': hash(
-            'responsible'), 'role': UserRole.pengawas},
+        {'name': 'admin', 'password': bcrypt.hashpw(b'admin', bcrypt.gensalt()), 'role': 1},
+        {'name': 'responsible', 'password': bcrypt.hashpw(b'responsible', bcrypt.gensalt()), 'role': 2},
     ]
     # 'role': UserRole
 

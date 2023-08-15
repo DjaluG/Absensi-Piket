@@ -1,5 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from models.Student import Student
+from pydantic import parse_obj_as
 from fastapi.encoders import jsonable_encoder
 from bson import ObjectId
 from database.db import db_connection
@@ -75,3 +76,56 @@ async def create_student(student: Student):
     result = collection.insert_one(student.dict())
 
     return {"message": "Student created", "student_id": str(result.inserted_id)}
+
+
+# Sudah piket
+@router.post('/success/{student_id}')
+async def mark_picket(student_id: str):
+    collection = db_connection()['students']
+
+     # Temukan data berdasarkan ObjectId
+    result = collection.find_one({"_id": ObjectId(student_id)})
+
+    if result is None:
+        raise HTTPException(status_code=404, detail="Student not found")
+    
+    # ubah dict menjadi model
+    student = parse_obj_as(Student, result)
+
+    student.status = True
+
+    updated_result = collection.update_one(
+        {"_id": ObjectId(student_id)},
+        {"$set": student.dict()}
+    )
+
+    if updated_result.modified_count == 1:
+        return {"message": f"Student marked as piket success"}
+    else:
+        return {"message": "No changes were made"}
+
+# Batalkan sudah piket
+@router.post('/cancel/{student_id}')
+async def mark_picket(student_id: str):
+    collection = db_connection()['students']
+
+     # Temukan data berdasarkan ObjectId
+    result = collection.find_one({"_id": ObjectId(student_id)})
+
+    if result is None:
+        raise HTTPException(status_code=404, detail="Student not found")
+    
+    # ubah dict menjadi model
+    student = parse_obj_as(Student, result)
+
+    student.status = False
+
+    updated_result = collection.update_one(
+        {"_id": ObjectId(student_id)},
+        {"$set": student.dict()}
+    )
+
+    if updated_result.modified_count == 1:
+        return {"message": f"Student marked as unpiket success"}
+    else:
+        return {"message": "No changes were made"}
