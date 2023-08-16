@@ -1,6 +1,8 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 import csv
 from pymongo import MongoClient
+from auth.auth_handler import get_current_user
+from models.User import User
 
 app = APIRouter()
 
@@ -12,7 +14,10 @@ collection = db['students']
 
 #  CTM OR CSV TO MONGODB
 @app.post("/upload/")
-async def upload_csv(file: UploadFile = File(...)):
+async def upload_csv(file: UploadFile = File(...), current_user: User = Depends(get_current_user)):
+    if current_user.role_id != 1:
+        raise HTTPException(status_code=403, detail="Forbidden")
+
     contents = await file.read()
     decoded_contents = contents.decode("utf-8")
 
