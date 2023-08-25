@@ -13,7 +13,16 @@ from database.db import db_connection
 router = APIRouter()
 auth_collection = db_connection()['auth']
 collection = db_connection()['students']
+day_collection = db_connection()['days']
 
+def sort_data(item):
+    sort_by_day = ["senin", "Senin", "selasa", "Selasa", "rabu", "Rabu",
+                   "kamis", "Kamis", "jumat", "Jumat"]
+    # Ketika day terisi oleh hari yang tidak ada dalam daftar maka akan disimpan diakhir data
+    default_key = len(sort_by_day)
+    #  dari gpt 😁😁
+    #  Jika data index item ada dalam sort maka akan ditampilkan dan diurutkan jika tidak ada maka akan disimpan diakhir
+    return sort_by_day.index(item["day"].lower()) if item["day"].lower() in sort_by_day else default_key
 
 @router.get('/students')
 async def get_all_students():
@@ -25,7 +34,9 @@ async def get_all_students():
         student['_id'] = str(student['_id'])
         student_list.append(student)
 
-    return student_list
+    sorted_student = sorted(student_list, key=sort_data)
+        
+    return sorted_student
 
 # Delete
 
@@ -104,7 +115,7 @@ async def mark_picket(student_id: str):
     # ubah dict menjadi model
     student = parse_obj_as(Student, result)
 
-    student.status = True
+    student.status = "Sudah Piket"
 
     updated_result = collection.update_one(
         {"_id": ObjectId(student_id)},
@@ -132,7 +143,7 @@ async def mark_picket(student_id: str):
     # ubah dict menjadi model
     student = parse_obj_as(Student, result)
 
-    student.status = False
+    student.status = "Tidak Piket"
 
     updated_result = collection.update_one(
         {"_id": ObjectId(student_id)},

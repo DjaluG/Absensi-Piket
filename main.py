@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from seeders.students_seeder import seed_student
 from seeders.user import user_login
 from seeders.role_seeder import seed_role
+from seeders.day_seeder import seed_day
 # from database import db
 from piket_api import api
 from ctm import ctm
@@ -12,6 +13,7 @@ app = FastAPI()
 seed_student()
 user_login()
 seed_role()
+seed_day()
 
 
 @app.get("/")

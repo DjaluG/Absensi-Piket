@@ -3,8 +3,14 @@ students_collection = db_connection()['students']
 
 def seed_student():
     items_to_insert = [
-        {"nis": "4", "nama" : "Test", "rombel" : "TJKT-XII", "rayon" : "Cicurug 4", "day" : "Sennin", 
-         "status": False, "desc": ""}
+        {"nis": "6", "nama" : "Test", "rombel" : "TJKT-XII", "rayon" : "Cicurug 4", "day" : "selasa", 
+         "status": "", "date": "", "total": ""},
+        {"nis": "1", "nama" : "Test", "rombel" : "TJKT-XII", "rayon" : "Cicurug 4", "day" : "senin", 
+         "status": "", "date": "", "total": ""},
+        {"nis": "4", "nama" : "Test", "rombel" : "TJKT-XII", "rayon" : "Cicurug 4", "day" : "Senin", 
+         "status": "", "date": "", "total": ""},
+        {"nis": "5", "nama" : "Test", "rombel" : "TJKT-XII", "rayon" : "Cicurug 4", "day" : "Sennin", 
+         "status": "", "date": "", "total": ""},
     ]
 
     for item in items_to_insert:
