@@ -1,8 +1,8 @@
 const eChart = {
   series: [
     {
-      name: "Sales",
-      data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+      name: "Data",
+      data: [450, 200, 100, 220, 500],
       color: "#fff",
     },
   ],
@@ -39,15 +39,11 @@ const eChart = {
     },
     xaxis: {
       categories: [
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
       ],
       labels: {
         show: true,
@@ -96,7 +92,7 @@ const eChart = {
     tooltip: {
       y: {
         formatter: function (val) {
-          return "$ " + val + " thousands";
+          return "$ " + val + " Total piket";
         },
       },
     },

@@ -10,10 +10,10 @@
   * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// import { useState } from "react";
+// import { useState } from "react";mmmmmmmmmmmmmmmmmmm
 import { Menu, Button } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logo-wk.png";
 
 function Sidenav({ color }) {
   const { pathname } = useLocation();
@@ -164,7 +164,7 @@ function Sidenav({ color }) {
     <>
       <div className="brand">
         <img src={logo} alt="" />
-        <span>Muse Dashboard</span>
+        <span>Absensi Piket</span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
@@ -178,7 +178,7 @@ function Sidenav({ color }) {
             >
               {dashboard}
             </span>
-            <span className="label">Dashboard</span>
+            <span className="label">Home</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
@@ -204,23 +204,10 @@ function Sidenav({ color }) {
             >
               {billing}
             </span>
-            <span className="label">Billing</span>
+            <span className="label">Absen</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="4">
-          <NavLink to="/rtl">
-            <span
-              className="icon"
-              style={{
-                background: page === "rtl" ? color : "",
-              }}
-            >
-              {rtl}
-            </span>
-            <span className="label">RTL</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item className="menu-item-header" key="5">
+        {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item>
         <Menu.Item key="6">
@@ -247,7 +234,7 @@ function Sidenav({ color }) {
             <span className="icon">{signup}</span>
             <span className="label">Sign Up</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
       </Menu>
       <div className="aside-footer">
         <div

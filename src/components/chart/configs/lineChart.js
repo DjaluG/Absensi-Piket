@@ -2,12 +2,7 @@ const lineChart = {
   series: [
     {
       name: "Mobile apps",
-      data: [350, 40, 300, 220, 500, 250, 400, 230, 500],
-      offsetY: 0,
-    },
-    {
-      name: "Websites",
-      data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+      data: [12,35, 4, 30, 22, 50, 25, 40, 23, 5, 28, 27],
       offsetY: 0,
     },
   ],
@@ -58,10 +53,14 @@ const lineChart = {
             "#8c8c8c",
             "#8c8c8c",
             "#8c8c8c",
+            "#8c8c8c",
+            "#8c8c8c",
+            "#8c8c8c",
           ],
         },
       },
       categories: [
+        "Jan",
         "Feb",
         "Mar",
         "Apr",
@@ -71,6 +70,8 @@ const lineChart = {
         "Aug",
         "Sep",
         "Oct",
+        "Nov",
+        "Dec"
       ],
     },
 

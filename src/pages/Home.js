@@ -23,6 +23,7 @@ import {
   Button,
   Timeline,
   Radio,
+  Carousel,
 } from "antd";
 import {
   ToTopOutlined,
@@ -354,7 +355,7 @@ function Home() {
               xl={6}
               className="mb-24"
             >
-              <Card bordered={false} className="criclebox ">
+              {/* <Card bordered={false} className="criclebox ">
                 <div className="number">
                   <Row align="middle" gutter={[24, 0]}>
                     <Col xs={18}>
@@ -368,16 +369,21 @@ function Home() {
                     </Col>
                   </Row>
                 </div>
-              </Card>
+              </Card> */}
             </Col>
           ))}
         </Row>
 
         <Row gutter={[24, 0]}>
+          
           <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
+            <Carousel>           
+               <Card bordered={false} className="criclebox h-full">
               <Echart />
             </Card>
+            </Carousel>
+
+
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
